@@ -1,0 +1,93 @@
+<html><head><base target="_blank">
+    <base target="_blank"><base target="_blank"></head><body><button class="c-button">FULLSCREEN</button>
+    <style>
+    button:hover {
+            transform: scale(1.01);
+        animation-iteration-count:infinite;
+        animation-timing-function: ease-in-out;
+            animation-name:rainbow;
+        animation-duration: 7s;
+    }
+    
+    button {
+        background-color: black;
+        color:white;
+        border:10px solid white;
+        border-radius: 10px;
+        cursor:pointer;
+        font-size: 15px;
+            min-width: 99%;
+            min-height: 99%;
+        transition:all 0.5s;
+    }
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f0f0;
+    }
+    
+    @keyframes rainbow{	
+        0%{
+            color: red;
+            border-color: red;
+        }
+        16%{
+            color: orange;
+            border-color:orange;
+        }
+        32%{
+            color:yellow;
+            border-color:yellow;
+        }
+        49%{
+            color:green;
+            border-color:green;
+        }
+        65%{
+            color:blue;
+            border-color:blue;
+        }
+        82%{
+            color:lightorchid;
+            border-color:lightorchid;
+        }
+        100%{
+            color:red;
+            border-color:red;
+        }
+    }
+    </style>
+    <script>
+            var urlObj = new window.URL(window.location.href);
+            var url = "https://aniwave.se/";
+            if (url) {
+                var win;
+                document.querySelector('button').onclick = function() {
+                    if (win) {
+                        win.focus();
+                    } else {
+                        win = window.open();
+                        win.document.body.style.margin = '0';
+                        win.document.body.style.height = '100vh';
+                        var iframe = win.document.createElement('iframe');
+                        iframe.style.border = 'none';
+                        iframe.style.width = '100%';
+                        iframe.style.height = '100%';
+                        iframe.style.margin = '0';
+                        iframe.src = url;
+                        win.document.body.appendChild(iframe);    
+                        var interval = setInterval(function() {
+                            if (win.closed) {
+                                clearInterval(interval);
+                                win = undefined;
+                            }
+                        }, 500);
+                    }
+                };
+            }
+        </script>
+    
+    </body></html>

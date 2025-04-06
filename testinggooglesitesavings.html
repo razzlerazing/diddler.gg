@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Totally Khan Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+  html,
+body {
+  font-family: "Press Start 2P", cursive;
+  font-size: 13px;
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure full height */
+  width: 100%; /* Ensure full width */
+  overflow: hidden; /* Disable scrolling */
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  overflow: hidden;
+  position: relative;
+  background-size: cover; /* Scale to cover the screen */
+  text-align: center;
+  position: relative; /* Allow stacking of elements */
+  animation: gradientAnimation 10s linear infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background: linear-gradient(45deg, #ff007f, #00ff7f);
+  }
+  25% {
+    background: linear-gradient(45deg, #00ff7f, #007fff);
+  }
+  50% {
+    background: linear-gradient(45deg, #007fff, #ff7f00);
+  }
+  75% {
+    background: linear-gradient(45deg, #ff7f00, #ff00ff);
+  }
+  100% {
+    background: linear-gradient(45deg, #ff00ff, #ff007f);
+  }
+}
+.container {
+  max-width: 800px;
+  margin: 150px auto 0 auto;
+  padding: 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.75);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border: 2px solid transparent; /* Invisible border to make the shadow more visible */
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+  transform: scale(1.1); /* Slightly increase the size */
+  box-shadow: 0 0 50px 20px rgba(255, 255, 255, 1.0);
+}
+
+/* Loader styles */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6); /* semi-transparent black */
+  transition: background-color 0.3s ease;
+}
+
+#loader h1 {
+  font-size: 85px;
+  margin: 0;
+}
+
+#loader span {
+  color: red;
+}
+
+#loader p {
+  font-size: 20px;
+  margin-top: 1px;
+}
+
+.loader {
+  width: 80px;
+  height: 80px;
+  border: 10px solid rgba(255, 255, 255, 0.2);
+  border-top: 10px solid #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Sidebar styling */
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  justify-content: flex-start; /* Align items to the left */
+  align-items: center;
+  padding: 10px 20px;
+  z-index: 999;
+}
+
+.top-nav .logo {
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(0deg, #FF0000, #0000FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-right: 20px; /* Add space between logo and links */
+}
+
+.top-nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.top-nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.top-nav ul li a:hover {
+  font-weight: bold;
+  background: linear-gradient(
+    90deg,
+    #ff0000 0%,
+    #ff7f00 16.66%,
+    #ffff00 33.33%,
+    #00ff00 50%,
+    #0000ff 66.66%,
+    #4b0082 83.33%,
+    #8b00ff 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.9);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(128, 128, 128, 0.5), 0 0 40px rgba(255, 255, 255, 1);
+}
+/* Push content down so it's not hidden under fixed nav */
+.content {
+  margin-top: 80px;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 20px; /* Adds space below h1 */
+}
+h2 {
+  font-size: 20px;
+  line-height: 1.5; /* Increases spacing between lines */
+  margin-top: 10px; /* Adds space above h2 */
+}
+
+/* Highlight styles */
+.highlight {
+  background: linear-gradient(
+    90deg,
+    #ff0000 0%,
+    #ff7f00 16.66%,
+    #ffff00 33.33%,
+    #00ff00 50%,
+    #0000ff 66.66%,
+    #4b0082 83.33%,
+    #8b00ff 100%
+  );
+  color: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Time and Battery Section */
+.time,
+.battery {
+  font-size: 2em;
+  margin: 10px 0;
+}
+
+.battery {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.battery-icon {
+  width: 20px;
+  height: 10px;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  margin-right: 5px;
+  position: relative;
+}
+
+.battery-icon::after {
+  content: "";
+  width: 4px;
+  height: 6px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  right: -7px;
+  transform: translateY(-50%);
+}
+
+.battery-fill {
+  height: 100%;
+  background-color: #4caf50;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* Hamburger button */
+.hamburger {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 45px; /* Adjust size of the circle */
+  height: 45px; /* Same as width to make it a perfect circle */
+  background: linear-gradient(
+    0deg,
+    #ff0000,
+    #0000ff
+  ); /* Background color of the circle */
+  border: none;
+  border-radius: 50%; /* Makes the button circular */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  z-index: 999;
+  padding: 8px; /* Add padding to make lines fit nicely inside the circle */
+}
+
+
+/* Add this to your existing styles */
+.content.blur {
+  background-color: rgba(0, 0, 0, 0.3); /* semi-transparent black */
+  transition: background-color 0.3s ease;
+  pointer-events: none; /* optional: allows clicks through */
+}
+</style>
+
+</head>
+<body onload="showLoader()">
+  <!-- Loader -->
+  <div id="loader">
+    <h1><span class="highlight">SKELLY</span>💀</h1>
+    <p><span class="highlight">Hanging Extension, please wait...</span></p>
+    <div class="loader"></div>
+  </div>
+
+  <!-- Sidebar -->
+  <nav class="top-nav">
+    <div class="logo"><a href="index.html">SKG</div>
+    <ul>
+      <li><a href="Gamess.html">Games</a></li>
+      <li><a href="proxy.html" target="_blank">Unblocker</a></li>
+      <li><a href="anxme.html" target="_blank">Anime</a></li>
+      <li><a href="movies.html" target="_blank">Movies</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Content Section -->
+  <div class="content">
+    <div class="container">
+    <h1><span class="highlight">SKELLY GAMING</span>💀</h1>
+    <h2>Where your gaming dreams come true😲💀</h2>
+
+    <!-- Time and Battery Section -->
+    <div class="time" id="time">If diddy chases u, ur cooked (wait for time to load)</div>
+    <div class="battery" id="battery">
+      <div class="battery-icon">
+        <div class="battery-fill" id="battery-fill"></div>
+      </div>
+      <span id="battery-percentage">If diddy chases u, ur cooked (wait for battery to load)</span>
+    </div>
+  </div>
+
+  <script>
+
+  // Show loader for a fixed time 
+  function showLoader() {
+    setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+    }, 2500);
+  }
+
+  // Update the time every 10ms
+  function updateTime() {
+    const timeElement = document.getElementById("time");
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const milliseconds = String(now.getMilliseconds()).padStart(3, '0');
+    timeElement.textContent = `${hours}:${minutes}:${seconds}.${milliseconds}`;
+  }
+
+  setInterval(updateTime, 10);
+
+  // Update battery status
+  async function updateBattery() {
+    const battery = await navigator.getBattery();
+    const level = Math.floor(battery.level * 100);
+    document.getElementById("battery-percentage").textContent = `${level}%`;
+    document.getElementById("battery-fill").style.width = `${level}%`;
+  }
+
+  updateBattery();
+
+  // Toggle sidebar visibility and blur effect
+  function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const hamburger = document.querySelector(".hamburger");
+    const content = document.querySelector(".content");
+  
+    sidebar.classList.toggle("closed");
+    hamburger.classList.toggle("open");
+  
+    // Add/remove blur when sidebar opens/closes
+    if (sidebar.classList.contains("closed")) {
+      content.classList.remove("blur");
+    } else {
+      content.classList.add("blur");
+    }
+  }
+  
+
+    </script>
+</body>
+</html>
